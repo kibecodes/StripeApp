@@ -1,10 +1,11 @@
 {
-  "name": "stripeapp",
+  "name": "backend",
   "version": "1.0.0",
   "description": "nodejs app with stripe integration for online payments",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "nodemon server.js",
+    "start:dev": "nodemon server.js",
     "author": "Jonathan Kibet",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
