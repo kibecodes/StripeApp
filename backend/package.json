@@ -1,0 +1,21 @@
+{
+  "name": "stripeapp",
+  "version": "1.0.0",
+  "description": "nodejs app with stripe integration for online payments",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "author": "Jonathan Kibet",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.1",
+    "express": "^4.18.2",
+    "nodemon": "^3.0.3",
+    "stripe": "^14.14.0",
+    "uuid": "^9.0.1"
+  }
+}
