@@ -13,6 +13,7 @@ app.use(cors());
 app.get('/', (req, res) => {
     res.send('HELLO WORLD');
 });
+
 app.post('/api/create-checkout-session', async (req, res) => {
     const {product} = req.body;
     const session = await stripe.checkout.session
