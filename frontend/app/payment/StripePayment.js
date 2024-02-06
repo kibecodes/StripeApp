@@ -16,18 +16,9 @@ function StripePayment() {
     quantity: 1, 
   }); 
 
-  const [stripe, setStripe] = useState(null);
-
-  useEffect(() => {
-    const fetchStripe = async() => {
-      const stripeInstance = await loadStripe(process.env.STRIPE_PUBLISHABLE_KEY);
-      setStripe(stripeInstance);
-    };
-
-    fetchStripe();
-  }, []);
 
   const makePayment = async () => { 
+    const stripe = await loadStripe(process.env.STRIPE_PUBLISHABLE_KEY);
     const body = { product }; 
     const headers = { 
       "Content-Type": "application/json", 
@@ -39,7 +30,7 @@ function StripePayment() {
         method: "POST", 
         headers: headers, 
         body: JSON.stringify(body), 
-      } 
+      } ,
     ); 
  
     const session = await response.json(); 
