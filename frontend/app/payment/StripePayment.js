@@ -1,7 +1,7 @@
 'use client'
 
 import * as React from "react"; 
-import { useState, useEffect } from "react"; 
+import { useState } from "react"; 
 import "bootstrap/dist/css/bootstrap.min.css"; 
 import Button from "react-bootstrap/Button"; 
 import Card from "react-bootstrap/Card"; 
@@ -18,12 +18,13 @@ function StripePayment() {
 
 
   const makePayment = async () => { 
+    try {
     const stripe = await loadStripe(process.env.STRIPE_PUBLISHABLE_KEY);
     const body = { product }; 
     const headers = { 
       "Content-Type": "application/json", 
     }; 
- 
+
     const response = await fetch( 
       "http://localhost:8000/api/create-checkout-session", 
       { 
@@ -32,16 +33,27 @@ function StripePayment() {
         body: JSON.stringify(body), 
       } ,
     ); 
+
+    if(!response.ok){
+      throw new Error('Failed to create checkout session')
+    }
  
     const session = await response.json(); 
  
     const result = stripe.redirectToCheckout({ 
       sessionId: session.id, 
     }); 
- 
-    if (result.error) { 
-      console.log(`Error: ${result.error}`); 
-    } 
+
+    if (result.error) {
+        console.error(`Error: ${result.error}`);
+      } else {
+        console.log('Payment successful!');
+      }
+      return result;
+    } catch (error) {
+      console.error('Error during payment:', error);
+      throw error;
+    }
   }; 
 
   return ( 
